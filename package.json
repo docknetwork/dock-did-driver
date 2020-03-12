@@ -10,7 +10,7 @@
   "license": "Apache 2.0",
   "dependencies": {
     "@polkadot/api": "^1.5.1",
-    "client-sdk": "git@github.com:docknetwork/client-sdk.git",
+    "client-sdk": "docknetwork/client-sdk#master",
     "dotenv": "^8.2.0",
     "git": "^0.1.5"
   },
