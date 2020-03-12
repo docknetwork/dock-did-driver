@@ -1,14 +1,11 @@
 require("dotenv").config();
 
-//import DockSDK, {DIDModule} from 'client-sdk';
-//import {ApiPromise, WsProvider} from "@polkadot/api";
-const polkadot = require('@polkadot/api');
-const sdkMod = require('client-sdk');
+import DockSDK, {DIDModule} from 'client-sdk';
 
 var HTTP_PORT = process.env.HTTP_PORT;
 var http = require('http');
 
-const dock = new sdkMod.DockSDK('ws://127.0.0.1:9944');
+const dock = new DockSDK('ws://127.0.0.1:9944');
 
 function fetchDID(http_response, did) {
    console.log('Calling get');
