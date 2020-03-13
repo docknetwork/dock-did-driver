@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-import DockSDK, {DIDModule} from 'client-sdk';
+import DockSDK from 'client-sdk';
 
 var HTTP_PORT = process.env.HTTP_PORT;
 var http = require('http');
@@ -8,15 +8,17 @@ var http = require('http');
 const dock = new DockSDK('ws://127.0.0.1:9944');
 
 function fetchDID(http_response, did) {
-   console.log('Calling get');
+   console.log('Getting DID:', did);
    // const doc = await dock.did.get(did);
    // console.log('DID doc:', doc);
    // http_response.write(doc);
    // http_response.end();
-   dock.did.get(did).then(function(http_response, did) {
+   dock.did.get('0x'+did).then(function(doc) {
       console.log('DID doc:', doc);
-      http_response.write(doc);
+      http_response.write(JSON.stringify(doc));
       http_response.end();
+   }, function(err) {
+      console.log('Error:', err);
    });
  }
 

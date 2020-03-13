@@ -10,10 +10,8 @@
   "author": "Dock.io",
   "license": "Apache 2.0",
   "dependencies": {
-    "@polkadot/api": "^1.5.1",
-    "client-sdk": "docknetwork/client-sdk#master",
-    "dotenv": "^8.2.0",
-    "git": "^0.1.5"
+    "client-sdk": "docknetwork/client-sdk#patch1",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
