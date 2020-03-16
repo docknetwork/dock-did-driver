@@ -10,7 +10,7 @@
   "author": "Dock.io",
   "license": "Apache 2.0",
   "dependencies": {
-    "client-sdk": "docknetwork/client-sdk#patch1",
+    "client-sdk": "docknetwork/client-sdk#master",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
