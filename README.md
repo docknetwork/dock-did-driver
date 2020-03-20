@@ -1,3 +1,5 @@
+## Build and usage
+
 1. To build the docker image
     ```
     sudo docker image build -t dock-did-driver:1.0 .
@@ -13,3 +15,7 @@
     ```
     sudo docker exec -it <container id> /bin/sh
     ```
+
+## Specification
+
+Following https://github.com/decentralized-identity/universal-resolver/blob/master/docs/driver-development.md
