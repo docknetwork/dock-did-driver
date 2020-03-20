@@ -5,6 +5,7 @@ import DockSDK from 'client-sdk';
 var HTTP_PORT = process.env.HTTP_PORT;
 var http = require('http');
 
+// TODO: Use the environment variable from .env
 const dock = new DockSDK('ws://127.0.0.1:9944');
 
 function fetchDID(http_response, did) {
@@ -27,14 +28,12 @@ http.createServer(function (req, res) {
 var url = req.url;
 var parsedURL = new URL(url, `http://${req.headers.host}`);
 // Match the pattern /1.0/identifiers/<DID>
-let regex = new RegExp('\/1\.0\/identifiers\/([a-zA-Z0-9]+)');
+let regex = new RegExp('\/1\.0\/identifiers\/did:dock:([a-zA-Z0-9]+)');
 var matches = regex.exec(parsedURL);
 
 if(matches && matches.length > 1) {
     let did = matches[1];
     res.writeHead(200, { 'Content-Type': 'application/json+ld' });
-    // TODO: Fetch the DID from the full node
-    //res.write('<h1>DID is '+did+'<h1>');
     dock.init().then(function() {
       fetchDID(res, did);
     });
