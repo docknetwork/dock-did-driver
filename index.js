@@ -12,6 +12,9 @@ function onRequest(req, res) {
   // Always send JSON
   res.setHeader('Content-Type', 'application/json');
 
+  // TODO: check if SDK is still connected, if not, reconnect?
+  // SDK doesnt currently support checking connection status easily
+
   // Check if URL is valid to get a DID
   const matches = identifierRegex.exec(req.url);
   if (matches && matches.length > 1) {
