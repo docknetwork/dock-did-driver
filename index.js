@@ -1,48 +1,52 @@
+import http from 'http';
+import dock from 'client-sdk';
+
+// Match the pattern /1.0/identifiers/<DID>
+const identifierRegex = new RegExp('\/1\.0\/identifiers\/did:dock:([a-zA-Z0-9]+)');
+
+// Load environment variables from .env config
 require("dotenv").config();
 
-import DockSDK from 'client-sdk';
+// Define HTTP request handler
+function onRequest(req, res) {
+  // Always send JSON
+  res.setHeader('Content-Type', 'application/json');
 
-var HTTP_PORT = process.env.HTTP_PORT;
-var http = require('http');
+  // TODO: check if SDK is still connected, if not, reconnect?
+  // SDK doesnt currently support checking connection status easily
 
-// TODO: Use the environment variable from .env
-const dock = new DockSDK('ws://127.0.0.1:9944');
+  // Check if URL is valid to get a DID
+  const matches = identifierRegex.exec(req.url);
+  if (matches && matches.length > 1) {
+    // Fetch DID document
+    dock.did.getDocument(matches[1])
+      .then(document => {
+        res.end(JSON.stringify(document, null, 2));
+      })
+      .catch(error => {
+        res.statusCode = 400;
+        res.end(JSON.stringify({
+          error: error.toString()
+        }));
+      });
+  } else {
+    res.statusCode = 404;
+    res.end(JSON.stringify({
+      error: 'Invalid URL, should be in this format: /1.0/identifiers/<DID>'
+    }));
+  }
+}
 
-function fetchDID(http_response, did) {
-   console.log('Getting DID:', did);
-   // const doc = await dock.did.get(did);
-   // console.log('DID doc:', doc);
-   // http_response.write(doc);
-   // http_response.end();
-   dock.did.get('0x'+did).then(function(doc) {
-      console.log('DID doc:', doc);
-      http_response.write(JSON.stringify(doc));
-      http_response.end();
-   }, function(err) {
-      console.log('Error:', err);
+// Listen for connections
+const server = http.createServer(onRequest);
+server.listen(process.env.HTTP_PORT, process.env.HTTP_ADDRESS, () => {
+ console.log('Dock DID driver running on port', process.env.HTTP_PORT, ', connecting to node now...');
+
+ dock.init(process.env.NODE_ADDRESS)
+   .then(() => {
+     console.log('Connected to node, ready to serve DIDs!');
+   })
+   .catch(error => {
+     console.log('Can\'t connect to node, error:', error)
    });
- }
-
-//create a server object:
-http.createServer(function (req, res) {
-var url = req.url;
-var parsedURL = new URL(url, `http://${req.headers.host}`);
-// Match the pattern /1.0/identifiers/<DID>
-let regex = new RegExp('\/1\.0\/identifiers\/did:dock:([a-zA-Z0-9]+)');
-var matches = regex.exec(parsedURL);
-
-if(matches && matches.length > 1) {
-    let did = matches[1];
-    res.writeHead(200, { 'Content-Type': 'application/json+ld' });
-    dock.init().then(function() {
-      fetchDID(res, did);
-    });
- } else {
-    // Only a single URL querying the DID is supported.
-    res.writeHead(404, { 'Content-Type': 'text/html' });
-    res.write('<h1>Bad URL</h1> <br/> The URL path should be in this format: <i>/1.0/identifiers/&lt;DID&gt;</i>');
-    res.end();
- }
-}).listen(HTTP_PORT, '0.0.0.0', function(){
- console.log("Server running at port", HTTP_PORT);
 });
