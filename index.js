@@ -18,7 +18,7 @@ function onRequest(req, res) {
     // Fetch DID document
     dock.did.getDocument(matches[1])
       .then(document => {
-        res.end(JSON.stringify(document));
+        res.end(JSON.stringify(document, null, 2));
       })
       .catch(error => {
         res.statusCode = 400;
