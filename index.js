@@ -40,13 +40,16 @@ function onRequest(req, res) {
 // Listen for connections
 const server = http.createServer(onRequest);
 server.listen(process.env.HTTP_PORT, process.env.HTTP_ADDRESS, () => {
- console.log('Dock DID driver running on port', process.env.HTTP_PORT, ', connecting to node now...');
+  console.log('Dock DID driver running on port', process.env.HTTP_PORT, ', connecting to node now...');
 
- dock.init(process.env.NODE_ADDRESS)
-   .then(() => {
-     console.log('Connected to node, ready to serve DIDs!');
-   })
-   .catch(error => {
-     console.log('Can\'t connect to node, error:', error)
-   });
+  dock.init({
+    address: process.env.NODE_ADDRESS
+  })
+    .then(() => {
+      console.log('Connected to node, ready to serve DIDs!');
+    })
+    .catch(error => {
+      console.log('Can\'t connect to node, error:', error);
+      process.exit(0);
+    });
 });
