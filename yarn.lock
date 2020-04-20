@@ -792,9 +792,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@dock/sdk@docknetwork/sdk#master":
-  version "0.0.1"
-  resolved "git+ssh://git@github.com/docknetwork/sdk.git#f7a3a9008872c8d8e64ee18b1ea2b71e69221449"
+"@docknetwork/sdk@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@docknetwork/sdk/-/sdk-0.0.2.tgz#8771520647e4310a1222ab2d90ae6577fdf5d3b2"
+  integrity sha512-anwhJIq6jqdbo3qKvKapUvCZyFutc/M8nAI3Iwpiu4kCkrkhJnZv2OQ30/2MlwGb5FwnuksJ96oV0Q3s+GV//Q==
   dependencies:
     "@polkadot/api" "1.9.1"
     "@polkadot/util" "2.8.1"
@@ -1087,9 +1088,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*":
-  version "13.13.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.0.tgz#30d2d09f623fe32cde9cb582c7a6eda2788ce4a8"
-  integrity sha512-WE4IOAC6r/yBZss1oQGM5zs2D7RuKR6Q+w+X2SouPofnWn+LbCqClRyhO3ZE7Ix8nmFgo/oVuuE01cJT2XB13A==
+  version "13.13.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.1.tgz#1ba94c5a177a1692518bfc7b41aec0aa1a14354e"
+  integrity sha512-uysqysLJ+As9jqI5yqjwP3QJrhOcUwBjHUlUxPxjbplwKoILvXVsmYWEhfmAQlrPfbRZmhJB007o4L9sKqtHqQ==
 
 "@types/node@11.11.6":
   version "11.11.6"
@@ -2985,8 +2986,20 @@ jsonld-signatures@^4.4.0:
     security-context "^4.0.0"
     serialize-error "^4.1.0"
 
+"jsonld-signatures@git+https://github.com/docknetwork/jsonld-signatures.git#avoid-extendContextLoader":
+  version "5.0.2-0"
+  resolved "git+https://github.com/docknetwork/jsonld-signatures.git#416082535cac1f0a2a36bd0b665faca5fc479584"
+  dependencies:
+    base64url "^3.0.1"
+    crypto-ld "^3.7.0"
+    jsonld "^2.0.2"
+    node-forge "^0.9.1"
+    security-context "^4.0.0"
+    serialize-error "^5.0.0"
+
 "jsonld-signatures@https://github.com/docknetwork/jsonld-signatures#avoid-extendContextLoader":
   version "5.0.2-0"
+  uid "416082535cac1f0a2a36bd0b665faca5fc479584"
   resolved "https://github.com/docknetwork/jsonld-signatures#416082535cac1f0a2a36bd0b665faca5fc479584"
   dependencies:
     base64url "^3.0.1"
@@ -4552,9 +4565,9 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-"vc-js@https://github.com/docknetwork/vc-js#avoid-extendContextLoader":
+"vc-js@git+https://github.com/docknetwork/vc-js.git#avoid-extendContextLoader":
   version "0.5.1-0"
-  resolved "https://github.com/docknetwork/vc-js#98ad8eac68bbc58ad26584dc8aae2ce710fcf320"
+  resolved "git+https://github.com/docknetwork/vc-js.git#98ad8eac68bbc58ad26584dc8aae2ce710fcf320"
   dependencies:
     commander "^2.20.3"
     credentials-context "^1.0.0"

@@ -1,5 +1,5 @@
 import http from 'http';
-import dock from '@dock/sdk';
+import dock from '@docknetwork/sdk';
 
 // Match the pattern /1.0/identifiers/<DID>
 const identifierRegex = new RegExp('\/1\.0\/identifiers\/did:dock:([a-zA-Z0-9]+)');
