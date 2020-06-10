@@ -33,22 +33,6 @@ Currently, Dock supports registering a new DID with only one public key on chain
 signed message from the current key. The DID can be removed by providing a signed message from the current key. In future, 
 multiple keys for authentication and authorization and other relevant W3C compliant features will be supported. 
 
-## DID support in Dock SDK
-The SDK supports CRUD operations with the DID.
-
-1. To create a new DID, a DID, a public key and a controller are needed. The controller is the owner of the public key and is also a DID. 
-It can be the same as the DID being created or different. A public key of one of the three supported types is needed. The public key can 
-either be generated using the SDK or passed from outside. Similarly for the DID, it can be either generated from the SDK or passed from 
-outside as 32 bytes. The DID and public key are not cryptographically related. For more details, check [this example in SDK documentation](https://github.com/docknetwork/sdk/blob/master/tutorials/src/tutorial_did.md#did-creation).
-1. To rotate key of an existing DID, the current key is used to sign an update message containing the new public key and optionally 
-the new controller (if controller is not supplied, the controller remains unchanged). The update message contains the block number 
-for the last update of the DID. For details, check [this example in the SDK documentation](https://github.com/docknetwork/sdk/blob/master/tutorials/src/tutorial_did.md#updating-an-existing-did-on-chain).
-1. To remove an existing DID, the current key is used to sign a remove message with the block number for the last update. For 
-more details, check [the SDK documentation](https://github.com/docknetwork/sdk/blob/master/tutorials/src/tutorial_did.md#removing-an-existing-did-from-chain).
-
-The SDK supports DID resolvers for resolving DIDs. For more refer [this section](https://docknetwork.github.io/sdk/tutorials/tutorial_resolver.html) 
-in the SDK documentation.  
-
 ## Example Dock DIDs
 
 **DID with Sr25519 key**
@@ -119,3 +103,93 @@ in the SDK documentation.
   ]
 }
 ```
+
+## CRUD Operations
+The SDK supports following CRUD operations with the DID.
+
+### Creating a DID
+
+To create a new DID, a DID, a public key and a controller are needed. The controller is the owner of the public key and is also a DID. 
+It can be the same as the DID being created or different. A public key of one of the three supported types is needed. The public key can 
+either be generated using the SDK or passed from outside. Similarly for the DID, it can be either generated from the SDK or passed from 
+outside as 32 bytes. The DID and public key are not cryptographically related. 
+
+To create a new random DID.
+```js
+const did = createNewDockDID();
+```
+
+The DID is not yet registered on the chain. Before the DID can be registered, a public key needs to created as well. The following example shows an ed25519 key being created for the DID and then registering the DID.
+
+```js
+const pk = new PublicKeyEd25519(bytesAsHex);
+
+// Or it can be created by first creating a keyring
+const pair = keyring.addFromUri(secretUri, someMetadata, 'ed25519');
+const pk = PublicKeyEd25519.fromKeyringPair(pair);
+
+const keyDetail = createKeyDetail(pk, did);
+
+// Create transaction to send
+const transaction = dock.did.new(did, keyDetail);
+```
+
+For more details, check [this example in SDK documentation](https://github.com/docknetwork/sdk/blob/master/tutorials/src/tutorial_did.md#did-creation).
+
+### Resolving a DID
+
+The SDK supports DID resolvers for resolving DIDs. 
+
+To get a Dock DID document
+```js
+const result = await dock.did.getDocument(did);
+```
+
+For more on resolvers, refer [this section](https://docknetwork.github.io/sdk/tutorials/tutorial_resolver.html) in the SDK documentation.
+
+### Updating a DID
+
+To rotate key of an existing DID, the current key is used to sign an update message containing the new public key and optionally 
+the new controller (if controller is not supplied, the controller remains unchanged). The update message contains the block number 
+for the last update of the DID. 
+
+```js
+// Load the current keypair to sign
+const currentPair = dock.keyring.addFromUri(secretUri, null, 'ed25519');
+// The new key to change to
+const newPk = new PublicKeyEd25519(bytesAsHex);
+
+// Sign the key update message
+const [keyUpdate, signature] = await createSignedKeyUpdate(dock.did, did, newPk, currentPair);
+
+// Create transaction to send
+const transaction = dock.did.updateKey(keyUpdate, signature);
+```
+
+For details, check [this example in the SDK documentation](https://github.com/docknetwork/sdk/blob/master/tutorials/src/tutorial_did.md#updating-an-existing-did-on-chain).
+
+### Removing a DID
+
+To remove an existing DID, the current key is used to sign a remove message with the block number for the last update. 
+
+```js
+// Load the current keypair to sign
+const currentPair = dock.keyring.addFromUri(secretUri, null, 'ed25519');
+
+// Sign the removal message
+const [didRemoval, signature] = await createSignedDidRemoval(dock.did, dockDID, currentPair);
+
+// Create transaction to send
+const transaction = dock.did.remove(didRemoval, signature);
+```
+
+For more details, check [the SDK documentation](https://github.com/docknetwork/sdk/blob/master/tutorials/src/tutorial_did.md#removing-an-existing-did-from-chain).
+
+
+## Security Considerations
+The current DID implementation does not allow multiple keys to control the DID Document but this support will be added in future. 
+
+## Privacy Considerations
+The accounts used to send the transactions are independent of the keys associated with the DID. So the DID could have been created with one account, updated with another account and removed with another account. The accounts are not relevant
+in the data model and not associated with the DID in the chain-state, they can however be discovered in the transaction log.  
+To avoid being correlated, the different DIDs must be used.
