@@ -13,7 +13,7 @@ function onRequest(req, res) {
   res.setHeader('Content-Type', 'application/json');
 
   // TODO: check if SDK is still connected, if not, reconnect?
-  // SDK doesnt currently support checking connection status easily
+  // SDK doesn't currently support checking connection status easily
 
   // Check if URL is valid to get a DID
   const matches = identifierRegex.exec(req.url);
@@ -24,7 +24,7 @@ function onRequest(req, res) {
         res.end(JSON.stringify(document, null, 2));
       })
       .catch(error => {
-        res.statusCode = 400;
+        res.statusCode = 404;
         res.end(JSON.stringify({
           error: error.toString()
         }));
