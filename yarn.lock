@@ -2936,17 +2936,6 @@ jsonld-signatures@^4.4.0:
     security-context "^4.0.0"
     serialize-error "^4.1.0"
 
-"jsonld-signatures@git+https://github.com/docknetwork/jsonld-signatures.git#avoid-extendContextLoader":
-  version "5.0.2-0"
-  resolved "git+https://github.com/docknetwork/jsonld-signatures.git#416082535cac1f0a2a36bd0b665faca5fc479584"
-  dependencies:
-    base64url "^3.0.1"
-    crypto-ld "^3.7.0"
-    jsonld "^2.0.2"
-    node-forge "^0.9.1"
-    security-context "^4.0.0"
-    serialize-error "^5.0.0"
-
 "jsonld-signatures@https://github.com/docknetwork/jsonld-signatures#avoid-extendContextLoader":
   version "5.0.2-0"
   resolved "https://github.com/docknetwork/jsonld-signatures#416082535cac1f0a2a36bd0b665faca5fc479584"
@@ -4347,9 +4336,9 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-"vc-js@git+https://github.com/docknetwork/vc-js.git#avoid-extendContextLoader":
+"vc-js@https://github.com/docknetwork/vc-js#avoid-extendContextLoader":
   version "0.5.1-0"
-  resolved "git+https://github.com/docknetwork/vc-js.git#98ad8eac68bbc58ad26584dc8aae2ce710fcf320"
+  resolved "https://github.com/docknetwork/vc-js#98ad8eac68bbc58ad26584dc8aae2ce710fcf320"
   dependencies:
     commander "^2.20.3"
     credentials-context "^1.0.0"
