@@ -1,4 +1,4 @@
-FROM node:13.3.0-alpine
+FROM node:16.0.0-alpine
 
 # Install git as one of the dependency of SDK requires to pull from github
 RUN apk update && apk upgrade && \
@@ -18,11 +18,10 @@ COPY .env .
 COPY index.js .
 
 # Run the command inside your image filesystem
-RUN npm install
+RUN yarn install
 
 # Expose port 8080
 EXPOSE 8080
 
 # Run the node server
 CMD [ "yarn", "start" ]
-
