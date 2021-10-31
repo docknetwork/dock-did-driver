@@ -1,4 +1,5 @@
 import http from 'http';
+import cbor from 'cbor';
 import dock from '@docknetwork/sdk';
 
 // Match the pattern /1.0/identifiers/<DID>
@@ -17,8 +18,31 @@ function wrapDocument(document, contentType) {
   };
 }
 
+function jsonToStr(doc) {
+  return JSON.stringify(doc, null, 2);
+}
+
+function jsonToCborStr(doc) {
+  const cborBuff = cbor.encode(doc);
+  return cborBuff.toString('utf8');
+}
+
+const docWrappers = {
+  'application/did+ld+json': jsonToStr,
+  'application/did+json': jsonToStr,
+  'application/did+cbor': jsonToCborStr,
+  'none': (doc, contentType) => jsonToStr(wrapDocument(doc, contentType)),
+};
+
+const defaultContentType = 'application/did+ld+json';
+
 // Define HTTP request handler
 async function onRequest(req, res) {
+  let requestedHeader = req.headers && req.headers.accept;
+  if (requestedHeader && !docWrappers[requestedHeader]) {
+    requestedHeader = undefined;
+  }
+
   // Connect to node if not connected
   if (!dock.isConnected) {
     try {
@@ -35,7 +59,7 @@ async function onRequest(req, res) {
 
   // TODO: detect requested content type!
 
-  const contentType = 'application/did+ld+json';
+  const contentType = requestedHeader || 'application/did+ld+json';
 
   // Always send JSON
   res.setHeader('Content-Type', contentType);
@@ -46,7 +70,8 @@ async function onRequest(req, res) {
     // Fetch DID document
     dock.did.getDocument(matches[1])
       .then(document => {
-        res.end(JSON.stringify(wrapDocument(document, contentType), null, 2));
+        const wrapperMethod = docWrappers[requestedHeader || 'none'];
+        res.end(wrapperMethod(document, contentType));
       })
       .catch(error => {
         res.statusCode = 404;

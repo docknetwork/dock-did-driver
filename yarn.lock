@@ -2200,10 +2200,10 @@
   resolved "https://registry.yarnpkg.com/@docknetwork/node-types/-/node-types-0.4.7.tgz#01ebb41d56d218c38f03f9f1fc02763b4f6a0c23"
   integrity sha512-Gll5/qbRYWb+HZlNl42mqRZwHz9SJRN4M5uufYxWkE1QLNooKAJfZ/QlcF/repsrrh0bnTl3yeQQdBeF1EBVpA==
 
-"@docknetwork/sdk@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@docknetwork/sdk/-/sdk-1.0.1.tgz#7c47256acfe0d6853423efc1998604d2b187ad87"
-  integrity sha512-Gjul8J5zmbscA3ZCXL1FReD4CS4vnY24myUKdYqliy5rUzKWEOkB1riuPOXGEohZysYRyGN0zV36cMFgjJNF/w==
+"@docknetwork/sdk@^1.0.1-hotfix":
+  version "1.0.1-hotfix"
+  resolved "https://registry.yarnpkg.com/@docknetwork/sdk/-/sdk-1.0.1-hotfix.tgz#cb96613b7e9f64cdcdc5cdc9917e3f2e60590e50"
+  integrity sha512-RgGRCsj9WmaI0+iAQulB5vUYVqg8mFLRXV7QPtNisMtKbMSVZ1sZHe8aFpgGepAraNAvPzJ2uEcMP3h8vKn9Fg==
   dependencies:
     "@comunica/actor-init-sparql-rdfjs" "^1.19.2"
     "@comunica/types" "^1.0.0"
@@ -3312,6 +3312,13 @@ capture-exit@^2.0.0:
   integrity sha512-PiT/hQmTonHhl/HFGN+Lx3JJUznrVYJ3+AQsnthneZbvW7x+f08Tk7yLJTLEOUvBTbduLeeBkxEaYXUOUrRq6g==
   dependencies:
     rsvp "^4.8.4"
+
+cbor@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/cbor/-/cbor-8.0.2.tgz#d0f5088423437efcc160e9304bd0576f45d06abb"
+  integrity sha512-H5WTjQYgyHQI0VrCmbyQBOPy1353MjmUi/r3DbPib4U13vuyqm7es9Mfpe8G58bN/mCdRlJWkiCrPl1uM1wAlg==
+  dependencies:
+    nofilter "^3.0.3"
 
 chalk@^2.0.0, chalk@^2.0.1, chalk@^2.4.2:
   version "2.4.2"
@@ -5739,6 +5746,11 @@ node-releases@^1.1.53:
   version "1.1.53"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.53.tgz#2d821bfa499ed7c5dffc5e2f28c88e78a08ee3f4"
   integrity sha512-wp8zyQVwef2hpZ/dJH7SfSrIPD6YoJz6BDQDpGEkcA0s3LpAQoxBIYmfIq6QAhC1DhwsyCgTaTTcONwX8qzCuQ==
+
+nofilter@^3.0.3:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/nofilter/-/nofilter-3.1.0.tgz#c757ba68801d41ff930ba2ec55bab52ca184aa66"
+  integrity sha512-l2NNj07e9afPnhAhvgVrCD/oy2Ai1yfLpuo3EpiO1jFTsB4sFz6oIfAfSZyQzVpkZQ9xS8ZS5g1jCBgq4Hwo0g==
 
 normalize-package-data@^2.3.2:
   version "2.5.0"
