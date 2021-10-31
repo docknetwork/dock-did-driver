@@ -7,13 +7,38 @@ const identifierRegex = new RegExp('\/1\.0\/identifiers\/(did:dock:[a-zA-Z0-9]+)
 // Load environment variables from .env config
 require("dotenv").config();
 
-// Define HTTP request handler
-function onRequest(req, res) {
-  // Always send JSON
-  res.setHeader('Content-Type', 'application/json');
+function wrapDocument(document, contentType) {
+  return {
+    didResolutionMetadata: {
+      contentType,
+    },
+    didDocument: document,
+    didDocumentMetadata: {}
+  };
+}
 
-  // TODO: check if SDK is still connected, if not, reconnect?
-  // SDK doesn't currently support checking connection status easily
+// Define HTTP request handler
+async function onRequest(req, res) {
+  // Connect to node if not connected
+  if (!dock.isConnected) {
+    try {
+      console.log('Connecting to node...');
+      await dock.init({
+        address: process.env.NODE_ADDRESS
+      });
+      console.log('Connected to node, ready to serve DIDs!');
+    } catch (error) {
+      console.log('Can\'t connect to node, error:', error);
+      return;
+    }
+  }
+
+  // TODO: detect requested content type!
+
+  const contentType = 'application/did+ld+json';
+
+  // Always send JSON
+  res.setHeader('Content-Type', contentType);
 
   // Check if URL is valid to get a DID
   const matches = identifierRegex.exec(req.url);
@@ -21,7 +46,7 @@ function onRequest(req, res) {
     // Fetch DID document
     dock.did.getDocument(matches[1])
       .then(document => {
-        res.end(JSON.stringify(document, null, 2));
+        res.end(JSON.stringify(wrapDocument(document, contentType), null, 2));
       })
       .catch(error => {
         res.statusCode = 404;
@@ -40,16 +65,5 @@ function onRequest(req, res) {
 // Listen for connections
 const server = http.createServer(onRequest);
 server.listen(process.env.HTTP_PORT, process.env.HTTP_ADDRESS, () => {
-  console.log('Dock DID driver running on port', process.env.HTTP_PORT, ', connecting to node now...');
-
-  dock.init({
-    address: process.env.NODE_ADDRESS
-  })
-    .then(() => {
-      console.log('Connected to node, ready to serve DIDs!');
-    })
-    .catch(error => {
-      console.log('Can\'t connect to node, error:', error);
-      process.exit(0);
-    });
+  console.log('Dock DID driver running on port', process.env.HTTP_PORT);
 });
