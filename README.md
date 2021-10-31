@@ -9,6 +9,18 @@ did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA
 did:dock:5CxUdCGtopZEJhdv6kfLBZ22PMZX7UK8mdcHbTVw2nw6MVZH
 ```
 
+## Development
+
+Install NPM dependencies using yarn in the root directory: `yarn install`
+
+Start development server: `yarn start`
+
+By default it will be running on port `8080` - it should connect to the blockchain node and be ready to serve DIDs at that endpoint. Example:
+
+```
+curl http://localhost:8080/1.0/identifiers/did:dock:5EAp6DB2pkKuAfbhQiqAXFY4XPZkJrvtWKad4ChDmWwDrC8n
+```
+
 ## Build and usage
 
 1. To build the docker image
