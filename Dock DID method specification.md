@@ -1,6 +1,6 @@
 # Dock DID method specification
 
-Version: 0.1
+Version: 0.2
 
 ## Overview
 This document describes a new DID method for hosting DIDs on the [Dock](https://dock.io/) blockchain. Dock is a permissionless
@@ -26,12 +26,11 @@ Dock is currently running as a proof of stake chain. DIDs can be created
 by anyone holding Dock tokens but the creator of the DID is not necessarily the owner of the DID and thus cannot manage
 (update, remove) them. DIDs are managed using their corresponding private keys and these keys are independent of keys
 controlling the Dock tokens spent while creating the DID.  
-The chain does not store the full DID document but only the DID, the corresponding keys and controllers and block number
-for the last update and this block number changes with each update to the DID. This is needed for replay protection. Dock's
-client SDK retrieves those details and constructs the full DID document.  
-Currently, Dock supports registering a new DID with only one public key on chain. The key can be rotated by providing a
-signed message from the current key. The DID can be removed by providing a signed message from the current key. In future,
-multiple keys for authentication and authorization and other relevant W3C compliant features will be supported.
+The chain does not store the full DID document but only the DID, the corresponding keys, controllers and service endpoints. 
+Dock's client SDK retrieves those details and constructs the full DID document.  
+Currently, Dock supports registering a DID with one or more public keys. More keys can be added by providing a
+signed message from existing key with the appropriate privileges. Similarly controllers can be added or removed, service endpoints 
+can be added or removed.  The DID can be removed by providing a signed message from an appropriate key or one of the controllers. 
 
 ## Example Dock DIDs
 
@@ -103,9 +102,6 @@ multiple keys for authentication and authorization and other relevant W3C compli
   ]
 }
 ```
-
-## Security Considerations
-The current DID implementation does not allow multiple keys to control the DID Document but this support will be added in future.
 
 ## Privacy Considerations
 The accounts used to send the transactions are independent of the keys associated with the DID. So the DID could have been created with one account, updated with another account and removed with another account. The accounts are not relevant
