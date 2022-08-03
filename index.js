@@ -36,6 +36,14 @@ const docWrappers = {
 
 const defaultContentType = 'application/did+ld+json';
 
+function returnError(res, error, code = 400) {
+  res.setHeader('Content-Type', 'application/json');
+  res.statusCode = code;
+  res.end(JSON.stringify({
+    error: error.toString()
+  }));
+}
+
 // Define HTTP request handler
 async function onRequest(req, res) {
   let requestedHeader = req.headers && req.headers.accept;
@@ -53,15 +61,13 @@ async function onRequest(req, res) {
       console.log('Connected to node, ready to serve DIDs!');
     } catch (error) {
       console.log('Can\'t connect to node, error:', error);
+      returnError(res, error);
       return;
     }
   }
 
-  // TODO: detect requested content type!
-
+  // Determine expected content type
   const contentType = requestedHeader || 'application/did+ld+json';
-
-  // Always send JSON
   res.setHeader('Content-Type', contentType);
 
   // Check if URL is valid to get a DID
