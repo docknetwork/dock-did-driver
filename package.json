@@ -10,7 +10,7 @@
   "author": "Dock.io",
   "license": "Apache 2.0",
   "dependencies": {
-    "@docknetwork/sdk": "^2.2.0",
+    "@docknetwork/sdk": "^2.3.0",
     "cbor": "^8.0.2",
     "dotenv": "^8.2.0"
   },
