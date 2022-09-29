@@ -813,10 +813,10 @@
   resolved "https://registry.yarnpkg.com/@docknetwork/node-types/-/node-types-0.10.0.tgz#b6ef86739c922510e2e059e55a5d243eb2160c1d"
   integrity sha512-E3fo9YNA6JxqwUbYEmizwwiGL+FGbrds6XvPXlAXy6ST5hJ7g9okL054Wef2AZ+bp1QPp56KC7HI7iMz77KNKw==
 
-"@docknetwork/sdk@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@docknetwork/sdk/-/sdk-2.2.0.tgz#50e6c358e45dad59777a7ae6a99b245970ad64cb"
-  integrity sha512-IG9JV6w8/5yOaUZwoxU14ZxJ90kBSMuFJMoLiX01aBn9AmguoGlrwHuecsR63LZda/HPYR42dp94H0GdmfvmSQ==
+"@docknetwork/sdk@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@docknetwork/sdk/-/sdk-2.3.0.tgz#616ea52b8a8380a121c2d1d5732392adb29e9caf"
+  integrity sha512-Qh9i5kwZXxzDtFnBSHBhzkUeRlJJoZehsRDlQOTYkb3pvGlcc9aPpONkOvCNTSAE0QND4kA0r1akEiOamWRx0w==
   dependencies:
     "@docknetwork/node-types" "^0.10.0"
     "@polkadot/api" "7.15.1"
@@ -3025,12 +3025,7 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lodash@^4.17.13:
-  version "4.17.21"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
-
-lodash@^4.17.21:
+lodash@^4.17.13, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
