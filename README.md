@@ -17,7 +17,7 @@ Start development server: `yarn start`
 By default it will be running on port `8080` - it should connect to the blockchain node and be ready to serve DIDs at that endpoint. Example:
 
 ```
-curl http://localhost:8080/1.0/identifiers/did:dock:5EAp6DB2pkKuAfbhQiqAXFY4XPZkJrvtWKad4ChDmWwDrC8n
+curl http://localhost:8080/1.0/identifiers/did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA
 ```
 
 ## Build and usage
