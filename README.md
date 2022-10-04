@@ -4,7 +4,6 @@ A [Universal Resolver](https://github.com/decentralized-identity/universal-resol
 ## Example DIDs
 
 ```
-did:dock:5EAp6DB2pkKuAfbhQiqAXFY4XPZkJrvtWKad4ChDmWwDrC8n
 did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA
 did:dock:5CxUdCGtopZEJhdv6kfLBZ22PMZX7UK8mdcHbTVw2nw6MVZH
 ```
