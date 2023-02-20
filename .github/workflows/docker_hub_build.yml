@@ -39,7 +39,7 @@ jobs:
           fi
           if [ "${{ github.event_name}}" == "release" ];
           then
-            export TAG_NAME='docknetwork/dock-did-driver:${{github.ref_name}}, docknetwork/dock-did-driver:latest'
+            export TAG_NAME='docknetwork/dock-did-driver:latest'
           fi
           echo "Trigger: ${{github.event_name}}  TAG_NAME: $TAG_NAME"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
