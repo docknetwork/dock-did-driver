@@ -9,10 +9,11 @@ on:
         required: true
         default: latest
 
-  push:
+  release:
+    types:
+      - published
     branches:
       - master
-      - ci/docker-hub-build
 
 jobs:
  build-docker-image:
@@ -31,19 +32,23 @@ jobs:
         id: image_tag
         shell: bash
         run: |
-          export TAG_NAME=${{github.run_number}}
-          if [[ '${{ github.event.inputs.image_tag}}' != '' ]];
+          export TAG_NAME=docknetwork/dock-did-driver:build-${{github.run_number}}
+          if [ "${{ github.event.inputs.image_tag}}" != "" ];
           then
-            export TAG_NAME=${{github.event.inputs.image_tag}}
+            export TAG_NAME=docknetwork/dock-did-driver:${{github.event.inputs.image_tag}}
           fi
+          if [ "${{ github.event_name}}" == "release" ];
+          then
+            export TAG_NAME='docknetwork/dock-did-driver:${{github.ref_name}}, docknetwork/dock-did-driver:latest'
+          fi
+          echo "Trigger: ${{github.event_name}}  TAG_NAME: $TAG_NAME"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
 
-      - name: 'Build production latest image'
+      - name: 'Build production ${{ steps.image_tag.outputs.TAG_NAME }} image'
         uses: docker/build-push-action@v3
         with:
           context: .
           file: docker/Dockerfile
           push: true
-          tags: |
-            docknetwork/dock-did-driver:${{ steps.image_tag.outputs.TAG_NAME }}
+          tags: ${{ steps.image_tag.outputs.TAG_NAME }}
 
