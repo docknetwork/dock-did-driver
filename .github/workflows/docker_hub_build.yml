@@ -42,7 +42,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./Dockerfile
+          file: docker/Dockerfile
           push: true
           tags: |
             docknetwork/dock-did-driver:${{ steps.image_tag.outputs.TAG_NAME }}
